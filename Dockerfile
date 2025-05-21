@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -34,7 +34,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
 
-# Expose port
-EXPOSE 9000
+# Expose the correct port
+EXPOSE 8080
 
-CMD ["php-fpm"]
+# Serve the app
+CMD php -S 0.0.0.0:8080 -t public
